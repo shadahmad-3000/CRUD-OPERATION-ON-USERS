@@ -17,8 +17,6 @@ const createUserService = async (body) => {
             designation,
             joiningDate
         };
-
-        
         const currUser = await User.create(createUser);
         console.log("User Registered", currUser);
         return {
