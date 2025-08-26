@@ -32,52 +32,55 @@ const createUserService = async (body) => {
         }
     }
 }
-const updateUserService = async (employeeID,updateData) => {
+const updateUserService = async (param, body) => {
     try {
+        const { employeeID } = param;
+        const { updateData } = body;
+
         const updateUser = await User.findOneAndUpdate(
-            {employeeID : employeeID},
-            {$set: updateData},
-            {new: true}
+            { employeeID: employeeID },
+            { $set: updateData },
+            { new: true }
         )
-        if(!updateUser){
-            return{
+        if (!updateUser) {
+            return {
                 status: 404,
                 message: "User Not Found",
             }
         }
-        return{
+        return {
             status: 200,
             message: "User Updated Successfully",
             data: updateUser
         }
     } catch (error) {
-        console.error(error?.message || error,"Internal Servern error");
+        console.error(error?.message || error, "Internal Servern error");
         return {
-            status: 401,
-            message: "Error Detected"
+            status: 500,
+            message: error?.message || "Error Detected"
         }
     }
 }
 const deleteUserService = async (employeeID) => {
     try {
         const deleteUser = await User.deleteOne({
-            employeeID:employeeID
+            employeeID: employeeID
         }
         )
-        if(!deleteUser){
-            return{
+        if (!deleteUser) {
+            return {
                 status: 404,
                 message: "User Not Found to delete"
             }
         }
-        return{
-            status : 200,
+        return {
+            status: 200,
             message: "User Deleted Succssfully"
         }
     } catch (error) {
-        console.error(error?.message || error?.data,"Internal Server Error");
-        return{
-            status:500,
+        console.error(error?.message || error?.data, "Internal Server Error");
+        return {
+            status: 500,
             message: "Error Detected"
         }
     }
@@ -85,21 +88,21 @@ const deleteUserService = async (employeeID) => {
 const getUsersService = async () => {
     try {
         const allusers = await User.find();
-        if(!allusers){
-            return{
+        if (!allusers) {
+            return {
                 status: 404,
                 message: "No Users Found"
             }
         }
-        return{
-            status : 200,
+        return {
+            status: 200,
             message: "User Fetched Succesfully",
-            data : allusers
+            data: allusers
         }
     } catch (error) {
-        console.error(error?.message || error,"Internal Server Error");
-        return{
-            status : 401,
+        console.error(error?.message || error, "Internal Server Error");
+        return {
+            status: 401,
             message: "Oh! Error Detected"
         }
     }
