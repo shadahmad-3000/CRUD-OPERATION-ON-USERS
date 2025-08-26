@@ -9,6 +9,7 @@ const createUserService = async (body) => {
         if (!name || !email || !mobileNo || !employeeID || !designation || !joiningDate) {
             throw new Error("All parameters must be provided");
         }
+        
         const createUser = {
             name,
             email,
