@@ -1,12 +1,10 @@
-const serviceFile = require("../service/userService");
+const serviceFile = require("../service/employeeService");
 
 const createUser = async (req, res) => {
     const resp = await serviceFile.createUserService(req.body);
     res.send(resp);
 }
 const updateUser = async (req, res) => {
-    const { employeeId } = req.params;
-    const updateData = req.body;
     const resp = await serviceFile.updateUserService(req.params, req.body)
     res.send(resp);
 }

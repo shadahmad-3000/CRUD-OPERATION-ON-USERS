@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {eventService, fetcheventDetails,fetchTickets,confirmTicket,} = require('../controller/eventController');
-const {createUser,updateUser,deletUser,getUsers} = require("../controller/userController")
+const {createUser,updateUser,deletUser,getUsers} = require("../controller/employeeController")
 
 
 router.post("/abc",eventService);
