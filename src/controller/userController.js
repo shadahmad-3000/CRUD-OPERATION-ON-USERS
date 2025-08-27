@@ -5,8 +5,6 @@ const createUser = async (req, res) => {
     res.send(resp);
 }
 const updateUser = async (req, res) => {
-    const { employeeId } = req.params;
-    const updateData = req.body;
     const resp = await serviceFile.updateUserService(req.params, req.body)
     res.send(resp);
 }
