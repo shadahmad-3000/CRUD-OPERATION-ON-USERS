@@ -1,15 +1,14 @@
-const { default: status } = require("http-status");
-const User = require("../models/employee.model");
+const Employee = require("../models/employee.model");
 
 
 //register user
-const createUserService = async (body) => {
+const createEmpService = async (body) => {
     try {
         const { name, email, mobileNo, employeeID, designation, joiningDate } = body;
         if (!name || !email || !mobileNo || !employeeID || !designation || !joiningDate) {
             throw new Error("All parameters must be provided");
         }
-        const createUser = {
+        const createEmp = {
             name,
             email,
             mobileNo,
@@ -17,12 +16,12 @@ const createUserService = async (body) => {
             designation,
             joiningDate
         };
-        const currUser = await User.create(createUser);
-        console.log("User Registered", currUser);
+        const currEmp = await Employee.create(createEmp);
+        console.log("User Registered", currEmp);
         return {
             status: 200,
             message: "User registered Successfully",
-            data: currUser
+            data: currEmp
         }
     } catch (error) {
         console.error(error?.message || error?.data || error, "Internal Server Error");
@@ -32,26 +31,28 @@ const createUserService = async (body) => {
         }
     }
 }
-const updateUserService = async (param, body) => {
+const updateEmpService = async (param, body) => {
     try {
-        const { employeeID } = param;
+        const { employeeId } = param;
         const { updateData } = body;
 
-        const updateUser = await User.findOneAndUpdate(
-            { employeeID: employeeID },
-            { $set: updateData },
+        const updateEmp = await Employee.findOneAndUpdate(
+            { employeeID: employeeId },
+            { $set: {updateData} },
             { new: true }
         )
-        if (!updateUser) {
+        console.log("Employee's Data Updated",updateEmp);
+        
+        if (!updateEmp) {
             return {
                 status: 404,
-                message: "User Not Found",
+                message: "Employee Not Found",
             }
         }
         return {
             status: 200,
-            message: "User Updated Successfully",
-            data: updateUser
+            message: "Employee Updated Successfully",
+            data: updateEmp
         }
     } catch (error) {
         console.error(error?.message || error, "Internal Servern error");
@@ -61,21 +62,21 @@ const updateUserService = async (param, body) => {
         }
     }
 }
-const deleteUserService = async (employeeID) => {
+const deleteEmpService = async (employeeID) => {
     try {
-        const deleteUser = await User.deleteOne({
+        const deleteEmp = await Employee.deleteOne({
             employeeID: employeeID
         }
         )
-        if (!deleteUser) {
+        if (!deleteEmp) {
             return {
                 status: 404,
-                message: "User Not Found to delete"
+                message: "Employee Not Found to delete"
             }
         }
         return {
             status: 200,
-            message: "User Deleted Succssfully"
+            message: "Employee Data Deleted Succssfully"
         }
     } catch (error) {
         console.error(error?.message || error?.data, "Internal Server Error");
@@ -85,19 +86,19 @@ const deleteUserService = async (employeeID) => {
         }
     }
 }
-const getUsersService = async () => {
+const getEmpService = async () => {
     try {
-        const allusers = await User.find();
-        if (!allusers) {
+        const allemp = await Employee.find();
+        if (!allemp) {
             return {
                 status: 404,
-                message: "No Users Found"
+                message: "No Employee Found"
             }
         }
         return {
             status: 200,
-            message: "User Fetched Succesfully",
-            data: allusers
+            message: "Employee Fetched Succesfully",
+            data: allemp
         }
     } catch (error) {
         console.error(error?.message || error, "Internal Server Error");
@@ -109,8 +110,8 @@ const getUsersService = async () => {
 
 }
 module.exports = {
-    createUserService,
-    updateUserService,
-    deleteUserService,
-    getUsersService
+    createEmpService,
+    updateEmpService,
+    deleteEmpService,
+    getEmpService
 }

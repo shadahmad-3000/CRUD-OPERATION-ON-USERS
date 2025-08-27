@@ -1,27 +1,31 @@
 const serviceFile = require("../service/employeeService");
 
-const createUser = async (req, res) => {
-    const resp = await serviceFile.createUserService(req.body);
+const createEmp = async (req, res) => {
+    const resp = await serviceFile.createEmpService(req.body);
     res.send(resp);
 }
-const updateUser = async (req, res) => {
-    const resp = await serviceFile.updateUserService(req.params, req.body)
+const updateEmp = async (req, res) => {
+    const resp = await serviceFile.updateEmpService(req.params, req.body)
     res.send(resp);
 }
 
-const deletUser = async (req, res) => {
+const deleteEmp = async (req, res) => {
     const { employeeId } = req.params;
-    const resp = await serviceFile.deleteUserService(employeeId)
+    const resp = await serviceFile.deleteEmpService(employeeId)
     res.send(resp)
 }
-const getUsers = async (req, res) => {
-    const resp = await serviceFile.getUsersService();
-    res.send(resp);
+const getEmps = async (req, res) => {
+    try {
+        const resp = await serviceFile.getEmpService();
+        res.send(resp);
+    } catch (error) {
+        console.error(error?.message || error?.data,"Error!!!");
+    }
 }
 
 module.exports = {
-    createUser,
-    updateUser,
-    deletUser,
-    getUsers
+    createEmp,
+    updateEmp,
+    deleteEmp,
+    getEmps
 }
