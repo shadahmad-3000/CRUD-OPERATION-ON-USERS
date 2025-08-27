@@ -1,5 +1,5 @@
 const { default: status } = require("http-status");
-const User = require("../models/user.model");
+const User = require("../models/employee.model");
 
 
 //register user

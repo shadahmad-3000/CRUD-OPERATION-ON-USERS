@@ -1,4 +1,4 @@
-const serviceFile = require("../service/userService");
+const serviceFile = require("../service/employeeService");
 
 const createUser = async (req, res) => {
     const resp = await serviceFile.createUserService(req.body);
