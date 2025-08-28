@@ -5,6 +5,8 @@ dotenv.config();
 
 const port = process.env.PORT || 5000;
 
+require('./jobs/taskScheduler');
+
 app.listen(port, async () => {
     try {
         console.log(`Server is running at ${port}`);

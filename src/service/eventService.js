@@ -86,11 +86,11 @@ const bookTicket = async (body) => {
             throw new Error(`Max ${MAX_COUNT} tickets can be booked at once`);
         }
 
-        const bookingDate = moment(date, "YYYY-MM-DD");
+        const bookingDate = moment(date, "YYYY-MM-DD HH:mm");
         const today = moment().startOf("day");
 
         if (!bookingDate.isValid()) {
-            throw new Error("Invalid date format, must be YYYY-MM-DD");
+            throw new Error("Invalid date format, must be YYYY-MM-DD HH:mm");
         }
 
         if (bookingDate.isBefore(today)) {
