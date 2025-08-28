@@ -4,6 +4,7 @@ const {eventService, fetcheventDetails,fetchTickets,confirmTicket,} = require('.
 const {createEmp,updateEmp,deleteEmp,getEmps} = require("../controller/employeeController")
 const {sentOtp,verifyOtp} = require("../controller/otpController")
 const taskController = require('../controller/taskController');
+const taskEmailController = require('../controller/taskEmailController')
 
 
 router.post("/abc",eventService);
@@ -21,5 +22,7 @@ router.route("/create-task").post(taskController.createTask);
 router.route("/get-task/:id").get(taskController.getTask);
 router.route("/update-task/:id").put(taskController.updateTask);
 router.route("/delete-task/:id").delete(taskController.deleteTask);
+router.route("/check-deadlines/:id").post(taskEmailController.checkDeadlines);
+router.route("/remind/:id").post(taskEmailController.sendReminderForTask);
 
 module.exports = router;

@@ -17,7 +17,7 @@ const sentOtpService = async (body) => {
         const mailOption = {
             from: '"FromMyApplication"<YourEmail@gmail.com>',
             to: email,
-            subject: "Your OTP Code",
+            subject: "Your OTP Code From AutoPe | live non stop",
             text: `Your OTP is: ${otp}. Valid for 5 minutes.`
         }
         const mail = await transport.sendMail(mailOption); //sendMail() is a function in nodemailer
@@ -25,12 +25,12 @@ const sentOtpService = async (body) => {
         return {
             status: httpStatus.OK,
             message: `OTP sent to ${email}`,
-            data: email
+            //data: email
         }
     } catch (error) {
         console.error("Error in Send OTP ", error?.message || error?.data || error);
         return {
-            status: httpStatus.Error,
+            status: httpStatus.BAD_REQUEST,
             message: "Failed to send OTP"
         }
     }
@@ -49,7 +49,7 @@ const verifyOtpService = async (body) => {
                 message: "No OTP sent to this mail"
             }
         }
-        if (Date.now() > record.expires) {
+        if (Date.now() > record.expires) {//Date.now() gives you current time in miliseconds
             return { 
                 status: 400, 
                 message: "OTP expired!" 
