@@ -9,6 +9,7 @@ const TaskSchema = new mongoose.Schema({
         match: [/^\S+@\S+\.\S+$/, "Invalid email address"] 
     },
     assignedBy:{type: String, required:true},
+    description: {type: String},
     duration: { 
     type: String, 
     validate: {
